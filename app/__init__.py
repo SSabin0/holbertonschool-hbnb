@@ -20,6 +20,8 @@ jwt = JWTManager()
 def create_app(config_class="config.DevelopmentConfig"):
     app = Flask(__name__)
     app.config.from_object(config_class)
+     # add website routes
+    app.register_blueprint(website)
     api = Api(
             app,
             version='1.0',
@@ -45,7 +47,5 @@ def create_app(config_class="config.DevelopmentConfig"):
     bcrypt.init_app(app)
     jwt.init_app(app)
 
-    # add website routes
-    app.register_blueprint(website)
 
     return app
