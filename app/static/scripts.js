@@ -35,10 +35,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Load all places if this page is index.html
+  // Run this if page is index
   const index = document.getElementById('places-list');
   if (index) {
-    // Also add options to select box
+    // Add options to select box
     const select = document.getElementById('price-filter');
     const optionAll = document.createElement('option');
     optionAll.text = 'All'
@@ -52,7 +52,6 @@ document.addEventListener('DOMContentLoaded', () => {
     select.add(option100);
     select.add(option50);
     select.add(option10);
-    // Add options to the price filter
     select.addEventListener('change', (event) => {
       // Get the selected price value
       const filter = parseInt(document.getElementById('price-filter').value);
@@ -66,10 +65,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
     });
+    // Load all places and fill page
     getAllPlaces();
   }
+
 });
 
+//
 async function loginUser(email, password) {
   // Add a loading / message box while waiting
   const message = document.getElementById('login-form-message');
