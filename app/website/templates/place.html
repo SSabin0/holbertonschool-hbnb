@@ -4,29 +4,83 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Place Details</title>
-    <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
-    <link rel="icon" type="image/png" href="{{url_for('static',filename='images/icon.png')}}">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="images/icon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-    {% include 'header.html' %}
+    <header>
+        <img src="images/logo.png" alt="HBnB Logo" class="logo">
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="login.html" class="login-button">Login</a>
+        </nav>
+    </header>
+
     <main>
-        <section id="place-details">
-            <!-- Place details will be populated dynamically -->
+        <section class="place-details">
+            <h1>Cozy Cabin</h1>
+            <img src="./images/cozy_cabin.jpg" alt="Cozy cabin">
+            <div class="place-info">
+                <p><strong>Host:</strong> Jane Doe</p>
+                <p><strong>Price per night:</strong> $60</p>
+                <p><strong>Description:</strong> A quiet cabin tucked in the woods, perfect for a weekend getaway.</p>
+                <p><strong>Amenities:</strong> WiFi, Fireplace, Kitchen</p>
+            </div>
         </section>
+
         <section id="reviews">
-            <!-- Reviews will be populated dynamically -->
+            <h2>Reviews</h2>
+
+            <div class="review-card">
+                <p><strong>Alex</strong> — Rating: 5/5</p>
+                <p>Loved the peace and quiet, would stay again.</p>
+            </div>
+
+            <div class="review-card">
+                <p><strong>Priya</strong> — Rating: 4/5</p>
+                <p>Great location, a bit chilly at night.</p>
+            </div>
         </section>
-        <section id="add-review">
-            <h2>Add a Review</h2>
-            <form id="review-form">
-                <label for="review-text">Review:</label>
-                <textarea id="review-text" name="review-text" required></textarea>
-                
-                <button type="submit">Submit</button>
-            </form>
-        </section>
+
+        <section class="add-review">
+    <h2>Add a Review</h2>
+    <p class="form-subtext">Share your experience with this place. Your review helps other guests.</p>
+    <form id="review-form" class="form">
+        <div class="form-row">
+            <div class="form-group">
+                <label for="reviewer-name">Name <span class="required">*</span></label>
+                <input type="text" id="reviewer-name" name="reviewer-name" required>
+            </div>
+            <div class="form-group">
+                <label for="rating">Rating <span class="required">*</span></label>
+                <select id="rating" name="rating" required>
+                    <option value="" disabled selected>Select a rating</option>
+                    <option value="5">5 - Excellent</option>
+                    <option value="4">4 - Good</option>
+                    <option value="3">3 - Average</option>
+                    <option value="2">2 - Poor</option>
+                    <option value="1">1 - Terrible</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group full-width">
+            <label for="review-text">Review <span class="required">*</span></label>
+            <textarea id="review-text" name="review-text" required></textarea>
+        </div>
+
+        <p class="required-note"><span class="required">*</span> Required Fields</p>
+
+        <button type="submit" class="details-button">Submit</button>
+    </form>
+</section>
     </main>
-    {% include 'footer.html' %}
-    <script src="{{url_for('static',filename='scripts.js')}}"></script>
+
+    <footer>
+        <p>&copy; 2026 HBnB. All rights reserved.</p>
+    </footer>
+
+    <script src="scripts.js"></script>
 </body>
 </html>
