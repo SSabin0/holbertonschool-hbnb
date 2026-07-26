@@ -12,6 +12,7 @@ from app.api.v1.amenities import api as amenities_ns  # noqa: E402
 from app.api.v1.places import api as places_ns  # noqa: E402
 from app.api.v1.reviews import api as reviews_ns  # noqa: E402
 from app.api.v1.auth import api as auth_ns  # noqa: E402
+from app.website import website # noqa: E402
 
 jwt = JWTManager()
 
@@ -43,5 +44,8 @@ def create_app(config_class="config.DevelopmentConfig"):
     # Initialise plugins
     bcrypt.init_app(app)
     jwt.init_app(app)
+
+    # add website routes
+    app.register_blueprint(website)
 
     return app
