@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Place Details</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
+    <link rel="icon" type="image/png" href="{{url_for('static',filename='images/icon.png')}}">
 </head>
 <body>
+    {% include 'header.html' %}
     <main>
         <section id="place-details">
             <!-- Place details will be populated dynamically -->
@@ -24,6 +26,7 @@
             </form>
         </section>
     </main>
-    <script src="scripts.js"></script>
+    {% include 'footer.html' %}
+    <script src="{{url_for('static',filename='scripts.js')}}"></script>
 </body>
 </html>
