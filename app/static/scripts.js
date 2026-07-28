@@ -27,6 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
       addReviewSection.style.display = 'block';
     }
 
+    fetchPlaceDetails(token, placeId);
+
     console.log('Place ID from URL:', placeId);
     console.log('Token:', token);
   }
@@ -127,4 +129,28 @@ if (priceFilter) {
 function getPlaceIdFromURL() {
   const params = new URLSearchParams(window.location.search);
   return params.get('id');
+}
+
+// ADD AFTER getPlaceIdFromURL function
+async function fetchPlaceDetails(token, placeId) {
+  const response = await fetch(`http://127.0.0.1:5000/api/v1/places/${placeId}`, {
+    headers: {
+      'Authorization': 'Bearer ' + token
+    }
+  });
+
+  const place = await response.json();
+  displayPlaceDetails(place);
+}
+
+function displayPlaceDetails(place) {
+  const placeDetails = document.querySelector('.place-details');
+  placeDetails.innerHTML = `
+    <h1>${place.title}</h1>
+    <div class="place-info">
+      <p><strong>Host:</strong> ${place.owner.first_name} ${place.owner.last_name}</p>
+      <p><strong>Price per night:</strong> $${place.price}</p>
+      <p><strong>Description:</strong> ${place.description}</p>
+    </div>
+  `;
 }
