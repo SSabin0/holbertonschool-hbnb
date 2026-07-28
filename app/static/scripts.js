@@ -118,7 +118,7 @@ function displayPlaces(places) {
 
     card.innerHTML = `
       <h2>${place.title}</h2>
-      <img src="${imageMap[place.title] || '/static/images/logo.png'}" alt="${place.title}">
+      <img src="${imageMap[place.title] || '/static/images/cozy_cabin.jpg'}" alt="${place.title}">
       <p>Price per night: $${place.price}</p>
       <a href="/place?id=${place.id}" class="details-button">View Details</a>
     `;
