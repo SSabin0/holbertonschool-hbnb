@@ -22,9 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const addReviewSection = document.querySelector('.add-review');
 
     if (!token) {
-      addReviewSection.style.display = 'none';
+      window.location.href = '/index';
     } else {
-      addReviewSection.style.display = 'block';
+  addReviewSection.style.display = 'block';
     }
 
     fetchPlaceDetails(token, placeId);
