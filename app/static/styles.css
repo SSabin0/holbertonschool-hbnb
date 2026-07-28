@@ -167,6 +167,12 @@ footer {
     font-size: 0.9rem;
 }
 
+#review-text + label,
+label[for="review-text"] {
+    text-align: center;
+    margin-top: 0.5rem;
+}
+
 .required {
     color: #e74c3c;
 }
@@ -284,7 +290,7 @@ footer {
 .place-details img {
     width: 100%;
     max-width: 600px;
-    height: 350px;
+    height: 100%;
     object-fit: cover;
     border-radius: 10px;
     display: block;
