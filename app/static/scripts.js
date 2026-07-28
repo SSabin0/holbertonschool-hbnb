@@ -52,3 +52,36 @@ function checkAuthentication() {
     fetchPlaces(token);
   }
 }
+
+async function fetchPlaces(token) {
+  const response = await fetch('http://127.0.0.1:5000/api/v1/places/', {
+    headers: {
+      'Authorization': 'Bearer ' + token
+    }
+  });
+
+  const places = await response.json();
+  displayPlaces(places);
+}
+
+function displayPlaces(places) {
+  const placesList = document.getElementById('places-list');
+
+  // clear the hardcoded cards from the HTML
+  placesList.innerHTML = '';
+
+  // loop through each place from the API and build a card
+  places.forEach(place => {
+    const card = document.createElement('div');
+    card.classList.add('place-card');
+    card.dataset.price = place.price; // store price for filtering later
+
+    card.innerHTML = `
+      <h2>${place.title}</h2>
+      <p>Price per night: $${place.price}</p>
+      <a href="/place?id=${place.id}" class="details-button">View Details</a>
+    `;
+
+    placesList.appendChild(card);
+  });
+}
