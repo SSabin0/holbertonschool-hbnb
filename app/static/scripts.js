@@ -97,6 +97,13 @@ async function fetchPlaces(token) {
   displayPlaces(places);
 }
 
+const imageMap = {
+  'Cozy Cabin': '/static/images/cozy_cabin.jpg',
+  'Downtown Loft': '/static/images/downtown_loft.jpg',
+  'Beachside Bungalow': '/static/images/beachside_bungalow.jpg'
+};
+
+
 function displayPlaces(places) {
   const placesList = document.getElementById('places-list');
 
@@ -111,6 +118,7 @@ function displayPlaces(places) {
 
     card.innerHTML = `
       <h2>${place.title}</h2>
+      <img src="${imageMap[place.title] || '/static/images/logo.png'}" alt="${place.title}">
       <p>Price per night: $${place.price}</p>
       <a href="/place?id=${place.id}" class="details-button">View Details</a>
     `;
