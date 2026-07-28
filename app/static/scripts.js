@@ -29,6 +29,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fetchPlaceDetails(token, placeId);
 
+    const reviewForm = document.getElementById('review-form');
+    if (reviewForm) {
+      reviewForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const reviewText = document.getElementById('review-text').value;
+        const rating = document.getElementById('rating').value;
+        await submitReview(token, placeId, reviewText, rating);
+      });
+  }
+
     console.log('Place ID from URL:', placeId);
     console.log('Token:', token);
   }
@@ -153,4 +163,27 @@ function displayPlaceDetails(place) {
       <p><strong>Description:</strong> ${place.description}</p>
     </div>
   `;
+}
+
+async function submitReview(token, placeId, reviewText, rating) {
+  const response = await fetch('http://127.0.0.1:5000/api/v1/reviews/', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + token
+    },
+    body: JSON.stringify({
+      text: reviewText,
+      rating: parseInt(rating),
+      place_id: placeId
+    })
+  });
+
+  if (response.ok) {
+    alert('Review submitted successfully!');
+    document.getElementById('review-form').reset();
+  } else {
+    const data = await response.json();
+    alert('Failed to submit review: ' + data.error);
+  }
 }
