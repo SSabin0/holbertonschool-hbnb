@@ -226,6 +226,7 @@ async function submitReview(token, placeId, reviewText, rating) {
     displayReviews(reviews);
   } else {
     const data = await response.json();
+    console.log('Error response:', data);
     alert('Failed to submit review: ' + data.error);
   }
 }
