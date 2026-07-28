@@ -212,8 +212,8 @@ footer {
 }
 
 .place-card {
-    flex: 0 0 300px;
-    max-width: 300px;
+    flex: 0 0 400px;
+    max-width: 400px;
 }
 
 .place-card img {
