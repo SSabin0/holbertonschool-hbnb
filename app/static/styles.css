@@ -167,10 +167,8 @@ footer {
     font-size: 0.9rem;
 }
 
-#review-text + label,
-label[for="review-text"] {
+#reviews > h2 {
     text-align: center;
-    margin-top: 0.5rem;
 }
 
 .required {
