@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const loginForm = document.getElementById('login-form');
+  const placesList = document.getElementById('places-list');
 
   if (loginForm) {
     loginForm.addEventListener('submit', async (event) => {
@@ -8,6 +9,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const password = document.getElementById('password').value;
       await loginUser(email, password);
     });
+  }
+
+  if (placesList) {
+    checkAuthentication();
   }
 });
 
@@ -27,5 +32,23 @@ async function loginUser(email, password) {
     window.location.href = '/index';
   } else {
     alert('Login failed: ' + response.statusText);
+  }
+}
+
+function getCookie(name) {
+  const cookies = document.cookie.split('; ');
+  const found = cookies.find(row => row.startsWith(name + '='));
+  return found ? found.split('=')[1] : null;
+}
+
+function checkAuthentication() {
+  const token = getCookie('token');
+  const loginLink = document.querySelector('.login-button');
+
+  if (!token) {
+    loginLink.style.display = 'block';
+  } else {
+    loginLink.style.display = 'none';
+    fetchPlaces(token);
   }
 }
