@@ -226,7 +226,11 @@ async function submitReview(token, placeId, reviewText, rating) {
     displayReviews(reviews);
   } else {
     const data = await response.json();
-    console.log('Error response:', data);
-    alert('Failed to submit review: ' + data.error);
+    if (data.msg === 'Token has expired') {
+      alert('Your session has expired. Please log in again.');
+      window.location.href = '/login';
+    } else {
+      alert('Failed to submit review: ' + (data.error || data.msg));
+    }
   }
 }
