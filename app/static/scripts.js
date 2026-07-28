@@ -24,7 +24,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!token) {
       window.location.href = '/index';
     } else {
-  addReviewSection.style.display = 'block';
+      addReviewSection.style.display = 'block';
+    }
+
+    const loginLink = document.querySelector('.login-button');
+    if (loginLink) {
+      if (!token) {
+        loginLink.style.display = 'block';
+      } else {
+        loginLink.style.display = 'none';
+      }
     }
 
     fetchPlaceDetails(token, placeId);
@@ -37,10 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const rating = document.getElementById('rating').value;
         await submitReview(token, placeId, reviewText, rating);
       });
-  }
-
-    console.log('Place ID from URL:', placeId);
-    console.log('Token:', token);
+    }
   }
 });
 
@@ -52,7 +58,6 @@ async function loginUser(email, password) {
     },
     body: JSON.stringify({ email, password })
   });
-
 
   if (response.ok) {
     const data = await response.json();
@@ -141,7 +146,6 @@ function getPlaceIdFromURL() {
   return params.get('id');
 }
 
-// ADD AFTER getPlaceIdFromURL function
 async function fetchPlaceDetails(token, placeId) {
   const response = await fetch(`http://127.0.0.1:5000/api/v1/places/${placeId}`, {
     headers: {
@@ -151,6 +155,15 @@ async function fetchPlaceDetails(token, placeId) {
 
   const place = await response.json();
   displayPlaceDetails(place);
+
+  // fetch reviews for this place
+  const reviewsResponse = await fetch(`http://127.0.0.1:5000/api/v1/places/${placeId}/reviews`, {
+    headers: {
+      'Authorization': 'Bearer ' + token
+    }
+  });
+  const reviews = await reviewsResponse.json();
+  displayReviews(reviews);
 }
 
 function displayPlaceDetails(place) {
@@ -163,6 +176,26 @@ function displayPlaceDetails(place) {
       <p><strong>Description:</strong> ${place.description}</p>
     </div>
   `;
+}
+
+function displayReviews(reviews) {
+  const reviewsSection = document.getElementById('reviews');
+  reviewsSection.innerHTML = '<h2>Reviews</h2>';
+
+  if (reviews.length === 0) {
+    reviewsSection.innerHTML += '<p>No reviews yet.</p>';
+    return;
+  }
+
+  reviews.forEach(review => {
+    const card = document.createElement('div');
+    card.classList.add('review-card');
+    card.innerHTML = `
+      <p><strong>Rating:</strong> ${review.rating}/5</p>
+      <p>${review.text}</p>
+    `;
+    reviewsSection.appendChild(card);
+  });
 }
 
 async function submitReview(token, placeId, reviewText, rating) {
@@ -182,6 +215,15 @@ async function submitReview(token, placeId, reviewText, rating) {
   if (response.ok) {
     alert('Review submitted successfully!');
     document.getElementById('review-form').reset();
+
+    // reload reviews after submission
+    const reviewsResponse = await fetch(`http://127.0.0.1:5000/api/v1/places/${placeId}/reviews`, {
+      headers: {
+        'Authorization': 'Bearer ' + token
+      }
+    });
+    const reviews = await reviewsResponse.json();
+    displayReviews(reviews);
   } else {
     const data = await response.json();
     alert('Failed to submit review: ' + data.error);
