@@ -96,7 +96,7 @@ document.getElementById('price-filter').addEventListener('change', (event) => {
     if (selectedPrice === 'all') {
       card.style.display = 'block';
     } else {
-      if (card.dataset.price <= selectedPrice) {
+      if (card.dataset.price >= selectedPrice) {
         card.style.display = 'block';
       } else {
         card.style.display = 'none';
