@@ -219,7 +219,7 @@ footer {
 .place-card img {
     width: 100%;
     object-fit: cover;
-    height: 200px;
+    height: auto;
     border-radius: 8px;
     margin-bottom: 0.5rem;
     padding: 1rem;
