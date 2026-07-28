@@ -176,8 +176,16 @@ async function fetchPlaceDetails(token, placeId) {
 
 function displayPlaceDetails(place) {
   const placeDetails = document.querySelector('.place-details');
+
+  const imageMap = {
+    'Cozy Cabin': '/static/images/cozy_cabin.jpg',
+    'Downtown Loft': '/static/images/downtown_loft.jpg',
+    'Beachside Bungalow': '/static/images/beachside_bungalow.jpg'
+  };
+
   placeDetails.innerHTML = `
     <h1>${place.title}</h1>
+    <img src="${imageMap[place.title] || '/static/images/cozy_cabin.jpg'}" alt="${place.title}">
     <div class="place-info">
       <p><strong>Host:</strong> ${place.owner.first_name} ${place.owner.last_name}</p>
       <p><strong>Price per night:</strong> $${place.price}</p>
