@@ -208,17 +208,16 @@ footer {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 .place-card {
-    flex: 0 0 400px;
-    max-width: 400px;
+    flex: 1 1 300px;
+    max-width: 550px;
 }
 
 .place-card img {
     width: 100%;
-    object-fit: cover;
     height: auto;
     border-radius: 8px;
     margin-bottom: 0.5rem;
