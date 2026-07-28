@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
   const loginForm = document.getElementById('login-form');
   const placesList = document.getElementById('places-list');
+  const placeDetails = document.querySelector('.place-details');
 
   if (loginForm) {
     loginForm.addEventListener('submit', async (event) => {
@@ -13,6 +14,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (placesList) {
     checkAuthentication();
+  }
+
+  if (placeDetails) {
+    const token = getCookie('token');
+    const placeId = getPlaceIdFromURL();
+    const addReviewSection = document.querySelector('.add-review');
+
+    if (!token) {
+      addReviewSection.style.display = 'none';
+    } else {
+      addReviewSection.style.display = 'block';
+    }
+
+    console.log('Place ID from URL:', placeId);
+    console.log('Token:', token);
   }
 });
 
@@ -104,3 +120,8 @@ document.getElementById('price-filter').addEventListener('change', (event) => {
     }
   });
 });
+
+function getPlaceIdFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('id');
+}
