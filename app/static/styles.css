@@ -208,11 +208,11 @@ footer {
     display: flex;
     flex-wrap: wrap;
     gap: 20px;
-    justify-content: space-around;
+    justify-content: flex-start;
 }
 
 .place-card {
-    flex: 1 1 300px;
+    flex: 0 1 300px;
     max-width: 550px;
 }
 
