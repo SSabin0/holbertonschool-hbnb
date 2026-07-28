@@ -104,22 +104,25 @@ function displayPlaces(places) {
 
 // Filter places by price
 
-document.getElementById('price-filter').addEventListener('change', (event) => {
-  const selectedPrice = event.target.value;
-  const cards = document.querySelectorAll('.place-card');
+const priceFilter = document.getElementById('price-filter');
+if (priceFilter) {
+  priceFilter.addEventListener('change', (event) => {
+    const selectedPrice = event.target.value;
+    const cards = document.querySelectorAll('.place-card');
 
-  cards.forEach(card => {
-    if (selectedPrice === 'all') {
-      card.style.display = 'block';
-    } else {
-      if (Number(card.dataset.price) <= Number(selectedPrice)) {
+    cards.forEach(card => {
+      if (selectedPrice === 'all') {
         card.style.display = 'block';
       } else {
-        card.style.display = 'none';
+        if (Number(card.dataset.price) <= Number(selectedPrice)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
       }
-    }
+    });
   });
-});
+}
 
 function getPlaceIdFromURL() {
   const params = new URLSearchParams(window.location.search);
