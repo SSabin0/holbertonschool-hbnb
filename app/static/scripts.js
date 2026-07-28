@@ -85,3 +85,22 @@ function displayPlaces(places) {
     placesList.appendChild(card);
   });
 }
+
+// Filter places by price
+
+document.getElementById('price-filter').addEventListener('change', (event) => {
+  const selectedPrice = event.target.value;
+  const cards = document.querySelectorAll('.place-card');
+
+  cards.forEach(card => {
+    if (selectedPrice === 'all') {
+      card.style.display = 'block';
+    } else {
+      if (card.dataset.price <= selectedPrice) {
+        card.style.display = 'block';
+      } else {
+        card.style.display = 'none';
+      }
+    }
+  });
+});
